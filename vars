@@ -4,7 +4,7 @@
 # of these to be appropriate for your environment.
 #
 
-IMAGE_NAME="cturra/ntp"
+IMAGE_NAME="e1342/ntp"
 CONTAINER_NAME="ntp"
 
 # (optional) define ntp server(s) to use
@@ -26,3 +26,6 @@ LOG_LEVEL=0
 
 # (optional) additional docker run options you may want
 DOCKER_OPTS=""
+
+# (optional) allow remote access to chronyd
+ALLOW_REMOTE_MON=false
