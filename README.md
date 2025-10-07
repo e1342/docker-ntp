@@ -1,9 +1,11 @@
 ## About this container
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/cturra/ntp.svg?logo=docker&label=pulls&style=for-the-badge&color=0099ff&logoColor=ffffff)](https://hub.docker.com/r/cturra/ntp/)
-[![Docker Stars](https://img.shields.io/docker/stars/cturra/ntp.svg?logo=docker&label=stars&style=for-the-badge&color=0099ff&logoColor=ffffff)](https://hub.docker.com/r/cturra/ntp/)
-[![GitHub Stars](https://img.shields.io/github/stars/cturra/docker-ntp.svg?logo=github&label=stars&style=for-the-badge&color=0099ff&logoColor=ffffff)](https://github.com/cturra/docker-ntp)
-[![Apache licensed](https://img.shields.io/badge/license-Apache-blue.svg?logo=apache&style=for-the-badge&color=0099ff&logoColor=ffffff)](https://raw.githubusercontent.com/cturra/docker-ntp/master/LICENSE)
+Forked from [cturra](https://github.com/cturra/docker-ntp)
+
+[![Docker Pulls](https://img.shields.io/docker/pulls/e1342/ntp.svg?logo=docker&label=pulls&style=for-the-badge&color=0099ff&logoColor=ffffff)](https://hub.docker.com/r/e1342/ntp/)
+[![Docker Stars](https://img.shields.io/docker/stars/e1342/ntp.svg?logo=docker&label=stars&style=for-the-badge&color=0099ff&logoColor=ffffff)](https://hub.docker.com/r/e1342/ntp/)
+[![GitHub Stars](https://img.shields.io/github/stars/e1342/docker-ntp.svg?logo=github&label=stars&style=for-the-badge&color=0099ff&logoColor=ffffff)](https://github.com/e1342/docker-ntp)
+[![Apache licensed](https://img.shields.io/badge/license-Apache-blue.svg?logo=apache&style=for-the-badge&color=0099ff&logoColor=ffffff)](https://raw.githubusercontent.com/e1342/docker-ntp/master/LICENSE)
 
 This container runs [chrony](https://chrony-project.org/) on [Alpine Linux](https://alpinelinux.org/).
 
@@ -12,7 +14,7 @@ This container runs [chrony](https://chrony-project.org/) on [Alpine Linux](http
 
 ## Supported Architectures
 
-Architectures officially supported by this Docker container. Simply pulling this container from [Docker Hub](https://hub.docker.com/r/cturra/ntp) should retrieve the correct image for your architecture.
+Architectures officially supported by this Docker container. Simply pulling this container from [Docker Hub](https://hub.docker.com/r/e1342/ntp) should retrieve the correct image for your architecture.
 
 ![Linux x86-64](https://img.shields.io/badge/linux/amd64-green?style=flat-square)
 ![ARMv8 64-bit](https://img.shields.io/badge/linux/arm64-green?style=flat-square)
@@ -31,14 +33,14 @@ Pull and run -- it's this simple.
 
 ```
 # pull from docker hub
-$> docker pull cturra/ntp
+$> docker pull e1342/ntp
 
 # run ntp
 $> docker run --name=ntp            \
               --restart=always      \
               --detach              \
               --publish=123:123/udp \
-              cturra/ntp
+              e1342/ntp
 
 # OR run ntp with higher security
 $> docker run --name=ntp                           \
@@ -49,7 +51,7 @@ $> docker run --name=ntp                           \
               --tmpfs=/etc/chrony:rw,mode=1750     \
               --tmpfs=/run/chrony:rw,mode=1750     \
               --tmpfs=/var/lib/chrony:rw,mode=1750 \
-              cturra/ntp
+              e1342/ntp
 ```
 
 
@@ -73,13 +75,13 @@ $> docker compose logs ntp
 
 ```
 # deploy ntp stack to the swarm
-$> docker stack deploy -c docker-compose.yml cturra
+$> docker stack deploy -c docker-compose.yml e1342
 
 # check that service is running
-$> docker stack services cturra
+$> docker stack services e1342
 
 # (optional) view the ntp logs
-$> docker service logs -f cturra_ntp
+$> docker service logs -f e1342_ntp
 ```
 
 
