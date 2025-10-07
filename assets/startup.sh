@@ -4,15 +4,21 @@ DEFAULT_NTP="time.cloudflare.com"
 CHRONY_CONF_FILE="/etc/chrony/chrony.conf"
 
 # confirm correct permissions on chrony run directory
-if [ -d /run/chrony ]; then
+if [ -d /run/chrony ] ; then
   chown -R chrony:chrony /run/chrony
   chmod o-rx /run/chrony
+
+  if [ "${SKIP_CHOWN:-false}" = false ] ; then
+    chown -R chrony:chrony /run/chrony
+    chmod o-rx /run/chrony
+  fi
+  
   # remove previous pid file if it exist
   rm -f /var/run/chrony/chronyd.pid
 fi
 
 # confirm correct permissions on chrony variable state directory
-if [ -d /var/lib/chrony ]; then
+if [ -d /var/lib/chrony ] &&  [ "${SKIP_CHOWN:-false}" = false ] ; then
   chown -R chrony:chrony /var/lib/chrony
 fi
 
@@ -70,7 +76,16 @@ done
   echo
   echo "driftfile /var/lib/chrony/chrony.drift"
   echo "makestep 0.1 3"
-  if [ "${NOCLIENTLOG:-false}" = true ]; then
+
+  # k8s
+  if [ "${PORT:-123}" != 123 ] ; then
+    echo "port ${PORT}"
+  fi
+    if [ "${CMDPORT:-323}" != 323 ] ; then
+    echo "cmdport ${CMDPORT}"
+  fi
+  
+  if [ "${NOCLIENTLOG:-false}" = true ] ; then
     echo "noclientlog"
   fi
   echo
@@ -78,4 +93,8 @@ done
 } >> ${CHRONY_CONF_FILE}
 
 ## startup chronyd in the foreground
-exec /usr/sbin/chronyd -u chrony -d -x -L ${LOG_LEVEL}
+if [ "${SKIP_CHOWN:-false}" = false ] ; then
+  exec /usr/sbin/chronyd -u chrony -d -x -L ${LOG_LEVEL}
+else
+  exec /usr/sbin/chronyd -u chrony  -U -d -x -L ${LOG_LEVEL}
+fi
